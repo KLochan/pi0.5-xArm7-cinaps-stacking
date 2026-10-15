@@ -55,6 +55,12 @@ flowchart LR
 
 ### Planned VLA Workflow
 
+<p align="center">
+  <img src="assets/cinaps_planned_vla_workflow.svg" width="1100" alt="Illustrated planned CINAPS observation to π0.5 action chunk and receding-horizon execution workflow">
+</p>
+
+*Illustrative research workflow, not a verified π0.5 CINAPS execution result.*
+
 ```mermaid
 flowchart LR
     A[Validated CINAPS demos] --> B[LeRobot conversion]
@@ -127,6 +133,8 @@ Further details: [Collection guide](docs/cinaps_collection.md) · [Grasp-report 
 
 ```text
 pi0.5-xArm7-cinaps-stacking/
+├── assets/
+│   └── cinaps_planned_vla_workflow.svg
 ├── gello_teleoperation/
 │   ├── config/
 │   │   └── xarm7_gello_local.yaml
