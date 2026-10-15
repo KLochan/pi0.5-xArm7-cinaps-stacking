@@ -63,12 +63,6 @@ flowchart LR
 *Illustration of the planned π0.5 action-chunk workflow.*
 
 
-<p align="center">
-  <img src="assets/cinaps_vla_action_chunk.png" width="1100" alt="Illustrated planned CINAPS observation to π0.5 action chunk and receding-horizon execution workflow">
-</p>
-
-*Illustrative research workflow, not a verified π0.5 CINAPS execution result.*
-
 ```mermaid
 flowchart LR
     A[Validated CINAPS demos] --> B[LeRobot conversion]
