@@ -279,6 +279,34 @@ These scripts have **robot-motion capability** and are research prototypes, not 
 
 ## π0.5 Training and Action-Chunk Implementation
 
+### Verified π0.5 Training Configuration
+
+The following settings were inspected in the actual corrected-CINAPS OpenPI training configuration:
+
+| Parameter | Actual value |
+|---|---|
+| Training configuration | `pi05_xarm_cinaps_staged_50_corrected_lora` |
+| Dataset | `lochan/xarm_cinaps_staged_50_corrected` |
+| Model | π0.5 |
+| Training method | LoRA |
+| Action dimension | 32 (model configuration) |
+| Action horizon | 15 |
+| Batch size | 1 |
+| Training steps | 30,000 configured |
+| Peak learning rate | 2.5 × 10⁻⁵ |
+| Final learning rate | 2.5 × 10⁻⁶ |
+| Warmup | 1,000 steps |
+| Optimizer | AdamW |
+| Gradient clipping norm | 1.0 |
+| Base checkpoint | `gs://openpi-assets/checkpoints/pi05_base/params` |
+| Weights & Biases | Disabled |
+
+Saved CINAPS checkpoint directories were observed through **step 29,999**. The model's configured 32-dimensional action representation differs from the **8 action components** consumed by the local xArm7 inference code (7 joints + gripper).
+
+More details: [Training configuration and checkpoint metadata](training/README.md).
+
+
+
 The workstation inspection confirmed local **π0.5 CINAPS LoRA training outputs** and experimental inference scripts. This project is therefore beyond data collection, although the available command outputs do not yet establish a quantitative autonomous task-success rate.
 
 | Component | Verified local evidence |
