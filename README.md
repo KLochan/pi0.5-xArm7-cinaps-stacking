@@ -198,6 +198,14 @@ The staged recording launcher also controls/coordinates data-collection activity
 
 ---
 
+## Public CINAPS Dataset v1.0
+
+**[Download 50 corrected demonstrations (GitHub Release)](https://github.com/KLochan/pi0.5-xArm7-cinaps-stacking/releases/tag/cinaps-dataset-v1.0)**
+
+The dataset includes 50 staged xArm7/GELLO recordings, 11,520 paired external/wrist frame records, and robot state/action CSV files. The three verified archives cover episodes 0001–0016 (1.30 GiB), 0017–0032 (1.35 GiB), and 0033–0050 (1.54 GiB). Download `SHA256SUMS.txt` from the release and check each archive with `sha256sum -c SHA256SUMS.txt` before extraction. Structural validation does not establish grasp or placement success, and the camera timestamps are callback times rather than confirmed sensor capture times.
+
+---
+
 ## CINAPS Dataset Validation and Camera Synchronization
 
 <p align="center">
