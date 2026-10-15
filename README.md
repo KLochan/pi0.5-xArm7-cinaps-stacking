@@ -263,6 +263,29 @@ See [Grasp-report notes](docs/cinaps_grasp_report.md) and [Progress checklist](d
 
 ---
 
+## π0.5 Inference Timing — Preliminary Measurements
+
+The following **eight inference times** were extracted from cycles 1–8 of `~/openpi/plus5x_diag.log`. The log shows repeated policy inference, but its exact task and checkpoint have **not yet been verified**, so these values are **preliminary log measurements, not a certified CINAPS benchmark**.
+
+<p align="center">
+  <img src="assets/pi05_inference_timing_8_cycles.svg" width="950" alt="Line plot of policy inference times for eight logged cycles">
+</p>
+
+| Cycle | Inference time |
+|---|---:|
+| 1 | 105.4 ms |
+| 2 | 97.5 ms |
+| 3 | 99.9 ms |
+| 4 | 101.3 ms |
+| 5 | 100.3 ms |
+| 6 | 104.3 ms |
+| 7 | 99.6 ms |
+| 8 | 102.0 ms |
+
+These are **per-inference measurements** reported by the log, not full perception-to-actuation cycle times or robot task-success results. The `plus5x_diag.log` sample also shows accepted velocity and gripper commands, but successful object manipulation remains to be demonstrated from independent evidence.
+
+---
+
 ## Published CINAPS π0.5 Inference Scripts
 
 The following **experimental implementations are now available** in this repository:
