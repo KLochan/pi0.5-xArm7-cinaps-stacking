@@ -218,3 +218,28 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# CINAPS datasets and recordings
+xarm_demos_*/
+datasets/
+recordings/
+*.bag
+*.db3
+*.mcap
+
+# Model checkpoints and weights
+checkpoints/
+*.safetensors
+*.ckpt
+*.pth
+*.pt
+
+# Local robot configurations and credentials
+.env.*
+config/local/
+config/*_private.yaml
+
+# Large experimental outputs
+wandb/
+tensorboard/
+runs/
