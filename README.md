@@ -304,6 +304,24 @@ See [Grasp-report notes](docs/cinaps_grasp_report.md) and [Progress checklist](d
 
 ---
 
+## CINAPS Benchmark Framework — Planned Evaluation
+
+<p align="center">
+  <img src="assets/cinaps_benchmark_framework.svg" width="1000" alt="Planned benchmarks: grasp success, placement success, full CINAPS completion, inference and control latency, and camera timing quality. Success rates not yet measured."/>
+</p>
+
+This figure defines **what to measure next**; it is **not a chart of achieved success rates**. Proposed endpoints are grasp success, correct target placement, six-letter sequence completion, inference latency, full observation-to-action latency, and camera timing. The camera callback skew statistic shown is an existing diagnostic, **not proof of sensor exposure synchronization**. View the [benchmark protocol, trial labeling rules and reporting checklist](evaluation/cinaps_benchmark_protocol.md).
+
+| Benchmark endpoint | Evidence status |
+|---|---|
+| Grasp success / per-letter placement success | Requires independently labeled physical trials |
+| Full six-letter CINAPS success | Requires repeated autonomous full-sequence trials |
+| Policy inference latency | Eight preliminary policy-call times, task/checkpoint attribution unverified |
+| End-to-end control latency | Not yet measured |
+| Camera callback timestamp skew | Measured on 11,520 frame pairs; capture timing not established |
+
+---
+
 ## π0.5 Inference Timing — Preliminary Measurements
 
 The following **eight inference times** were extracted from cycles 1–8 of `~/openpi/plus5x_diag.log`. The log shows repeated policy inference, but its exact task and checkpoint have **not yet been verified**, so these values are **preliminary log measurements, not a certified CINAPS benchmark**.
@@ -408,9 +426,9 @@ This repository contains implementation code and technical notes for GELLO and x
 - [x] Publish staged recorder and launch scripts (hardware-specific settings still require review)
 - [ ] Audit all 50 corrected episodes and label valid grasp/place outcomes
 - [ ] Add approved task images and representative demo GIF
-- [ ] Add dataset preprocessing and LeRobot conversion
+- [x] Publish corrected-dataset LeRobot conversion implementation (output validation still needed)
 - [x] Generate local π0.5 CINAPS training checkpoints (5,000–29,999 steps)\n- [x] Develop π0.5 CINAPS action-chunk scripts (source files located)\n- [ ] Verify real-robot action-chunk execution outcomes and evaluate CINAPS success rates
-- [ ] Report controlled multi-trial letter-placement and full-sequence success rates
+- [ ] Report controlled multi-trial letter-placement and full-sequence success rates using the [benchmark protocol](evaluation/cinaps_benchmark_protocol.md)
 
 ---
 
