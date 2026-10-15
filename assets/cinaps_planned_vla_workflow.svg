@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="760" viewBox="0 0 1240 760">
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f7faff"/><stop offset="1" stop-color="#edf4ff"/></linearGradient><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#397fca"/></marker></defs>
+<rect width="1240" height="760" rx="24" fill="url(#bg)"/>
+<text x="48" y="59" font-family="Arial,sans-serif" font-size="29" font-weight="bold" fill="#14263c">CINAPS / xArm7 — Planned π0.5 Action-Chunk Workflow</text>
+<text x="49" y="89" font-family="Arial,sans-serif" font-size="17" fill="#566678">Concept diagram based on recorded observations; no trained CINAPS π0.5 predictions or autonomous execution verified yet</text>
+<rect x="40" y="118" width="368" height="294" rx="17" fill="#fff" stroke="#f2aaa9" stroke-width="2"/>
+<rect x="436" y="118" width="349" height="294" rx="17" fill="#fff" stroke="#a6c7ec" stroke-width="2"/>
+<rect x="813" y="118" width="386" height="294" rx="17" fill="#fff" stroke="#f1d19a" stroke-width="2"/>
+<circle cx="74" cy="150" r="22" fill="#de5555"/><text x="67" y="158" font-family="Arial" fill="white" font-weight="bold" font-size="21">1</text>
+<text x="108" y="157" font-family="Arial" font-weight="bold" font-size="20" fill="#26394c">Current observation</text>
+<rect x="64" y="180" width="319" height="105" rx="11" fill="#fdf1f2"/>
+<text x="81" y="207" font-family="Arial" font-size="16" fill="#374b60">External + wrist RGB</text>
+<text x="81" y="233" font-family="Arial" font-size="16" fill="#374b60">xArm7 7 joint angles + gripper</text>
+<text x="81" y="259" font-family="Arial" font-size="16" fill="#374b60">Language instruction</text>
+<rect x="64" y="301" width="319" height="90" rx="9" fill="#edf8f7"/>
+<text x="78" y="326" font-family="Arial" font-size="15" fill="#205e61" font-weight="bold">Example prompt:</text>
+<text x="78" y="350" font-family="Arial" font-size="14" fill="#205e61">Pick up the blue letter C and place</text>
+<text x="78" y="372" font-family="Arial" font-size="14" fill="#205e61">it in the marked C position.</text>
+<circle cx="470" cy="150" r="22" fill="#448ec9"/><text x="464" y="158" font-family="Arial" fill="white" font-weight="bold" font-size="21">2</text>
+<text x="502" y="157" font-family="Arial" font-weight="bold" font-size="20" fill="#26394c">π0.5 policy</text>
+<rect x="468" y="190" width="282" height="119" rx="16" stroke="#5a91d2" stroke-width="2" fill="#edf5ff"/>
+<text x="609" y="234" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="36" fill="#183c71">π0.5</text>
+<text x="609" y="267" text-anchor="middle" font-family="Arial" font-size="19" fill="#183c71">Vision–Language–Action</text>
+<text x="609" y="291" text-anchor="middle" font-family="Arial" font-size="17" fill="#183c71">planned fine-tuned model</text>
+<text x="475" y="355" font-family="Arial" font-size="15" fill="#4d6278">Input: images + state + instruction</text>
+<text x="475" y="381" font-family="Arial" font-size="15" fill="#4d6278">Output: planned action chunk</text>
+<circle cx="847" cy="150" r="22" fill="#e5a648"/><text x="841" y="158" font-family="Arial" fill="white" font-weight="bold" font-size="21">3</text>
+<text x="877" y="157" font-family="Arial" font-weight="bold" font-size="20" fill="#26394c">Predicted action chunk</text>
+<rect x="839" y="182" width="332" height="172" rx="9" fill="#fffaee" stroke="#edd5a7"/>
+<rect x="839" y="182" width="332" height="34" rx="8" fill="#ffe5b4"/>
+<text x="854" y="204" font-family="Arial" font-weight="bold" font-size="15" fill="#63481a">Step</text><text x="948" y="204" font-family="Arial" font-weight="bold" font-size="15" fill="#63481a">q1 ... q7</text><text x="1091" y="204" font-family="Arial" font-weight="bold" font-size="15" fill="#63481a">gripper</text>
+<g font-family="Arial" font-size="17" fill="#495566"><text x="855" y="240">t+1</text><text x="949" y="240">a¹₁ ... a¹₇</text><text x="1101" y="240">g¹</text><text x="855" y="275">t+2</text><text x="949" y="275">a²₁ ... a²₇</text><text x="1101" y="275">g²</text><text x="855" y="310">...</text><text x="949" y="310">...</text><text x="1101" y="310">...</text><text x="855" y="340">t+H</text><text x="949" y="340">aᴴ₁ ... aᴴ₇</text><text x="1101" y="340">gᴴ</text></g>
+<text x="843" y="380" font-family="Arial" font-size="15" fill="#755b34">H = illustrative horizon, not a verified setting</text>
+<path d="M408 256 H430" stroke="#397fca" stroke-width="4" marker-end="url(#arr)"/><path d="M786 256 H807" stroke="#397fca" stroke-width="4" marker-end="url(#arr)"/>
+<rect x="40" y="443" width="1159" height="270" rx="17" fill="#fff" stroke="#b5d9bc" stroke-width="2"/>
+<circle cx="75" cy="480" r="22" fill="#42996f"/><text x="68" y="488" font-family="Arial" fill="white" font-weight="bold" font-size="21">4</text>
+<text x="110" y="487" font-family="Arial" font-weight="bold" font-size="21" fill="#26394c">Planned receding-horizon execution</text>
+<g font-family="Arial" fill="#2d455b" font-size="17" text-anchor="middle">
+<rect x="64" y="519" width="229" height="107" rx="12" fill="#eaf1ff"/><text x="178" y="553" font-weight="bold">Observe</text><text x="178" y="579">2 cameras + robot state</text><text x="178" y="603" font-size="15">No motion while observing</text>
+<rect x="333" y="519" width="229" height="107" rx="12" fill="#eaf1ff"/><text x="448" y="553" font-weight="bold">Predict</text><text x="448" y="579">Policy produces H actions</text><text x="448" y="603" font-size="15">Once model is available</text>
+<rect x="602" y="519" width="229" height="107" rx="12" fill="#e9f7ee"/><text x="716" y="553" font-weight="bold">Execute safely</text><text x="716" y="579">Short action segment</text><text x="716" y="603" font-size="15">Check constraints / limits</text>
+<rect x="871" y="519" width="304" height="107" rx="12" fill="#e9f7ee"/><text x="1022" y="553" font-weight="bold">Observe and replan</text><text x="1022" y="579">Refresh scene and joint state</text><text x="1022" y="603" font-size="15">Repeat until task finishes</text>
+</g>
+<path d="M294 575 H324" stroke="#397fca" stroke-width="4" marker-end="url(#arr)"/><path d="M563 575 H593" stroke="#397fca" stroke-width="4" marker-end="url(#arr)"/><path d="M832 575 H862" stroke="#397fca" stroke-width="4" marker-end="url(#arr)"/>
+<text x="65" y="679" font-family="Arial" font-size="15" fill="#697a88">Illustration only — this repository currently validates GELLO-recorded demonstrations, not deployed CINAPS VLA control.</text>
+</svg>
