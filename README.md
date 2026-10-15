@@ -53,7 +53,7 @@ flowchart LR
     H --> I[Dataset inspection and correction]
 ```
 
-### Planned VLA workflow (not yet demonstrated for CINAPS)
+### Planned VLA Workflow
 
 ```mermaid
 flowchart LR
