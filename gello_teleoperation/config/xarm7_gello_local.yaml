@@ -1,0 +1,15 @@
+
+RobotConfig:
+  robot_ip: "YOUR_XARM_IP"
+  robot_mode: 6
+  robot_speed: 20
+  robot_acc: 100
+  gripper_type: 2
+  start_joints: [-0.383293, -0.351749, -0.116091, 0.794706, 0.067219, 1.041443, 1.083854]
+
+TeleoperatorConfig:
+  port: "YOUR_GELLO_SERIAL_PORT"
+  joint_ids: [1, 2, 3, 4, 5, 6, 7]
+  joint_signs: [1, -1, 1, 1, 1, 1, 1]
+  start_joints: [-0.383293, -0.351749, -0.116091, 0.794706, 0.067219, 1.041443, 1.083854]
+  gripper_id: 8
