@@ -10,7 +10,7 @@
   <img src="https://img.shields.io/badge/VLA-%CF%800.5%20planned-f2c94c" alt="π0.5 planned">
 </p>
 
-> **Project status:** GELLO teleoperation and data-collection tooling are documented. A corrected dataset directory with 50 episode folders (4.3 GB) has been located, and a 50-episode grasp-event report exists. These facts do **not** establish 50 successful placements, complete six-letter stacking, or trained π0.5 inference on CINAPS. Full episode-level validation and policy training remain future work.
+> **Project status:** GELLO teleoperation and data-collection tooling are documented. A corrected dataset directory with 50 episode folders (4.3 GB) has been located, and a 50-episode grasp-event report exists. Offline CINAPS π0.5 inference has been verified from a corrected-data checkpoint, and both the dataset and an inference-only model archive are published as GitHub Releases. These facts do **not** establish 50 successful placements, complete six-letter stacking, or autonomous robot task success.
 
 ---
 
@@ -206,6 +206,40 @@ The dataset includes 50 staged xArm7/GELLO recordings, 11,520 paired external/wr
 
 ---
 
+## Public CINAPS π0.5 Model v1.0
+
+**[Download fine-tuned π0.5 checkpoint (GitHub Release)](https://github.com/KLochan/pi0.5-xArm7-cinaps-stacking/releases/tag/cinaps-pi05-model-v1.0)**
+
+This release contains the **standard-run, corrected CINAPS LoRA checkpoint at step 29,999**, packaged for inference without the training-state directory. The archive is about **5.90 GiB** and is distributed as five numbered parts, plus `MODEL_SHA256SUMS.txt` and `MODEL_PARTS_SHA256SUMS.txt`.
+
+**Offline verification (October 15, 2026):** The checkpoint was restored using OpenPI configuration `pi05_xarm_cinaps_staged_50_corrected_lora`. A recorded sample from episode 0001 supplied two 1280×720 RGB images, eight robot-state values and the recorded task instruction. The policy returned finite `actions` of shape **(15, 32)**. The first client-observed inference request took **9.4906 s** (potentially including compilation); the median of five subsequent client-observed requests was **85.33 ms**. These are **offline inference results**, not robot-control-loop timings or autonomous task-success measurements. No robot commands were sent during this test.
+
+### Download, verify and reconstruct
+
+Download **all seven assets** from the [model release](https://github.com/KLochan/pi0.5-xArm7-cinaps-stacking/releases/tag/cinaps-pi05-model-v1.0) into the same directory, then run:
+
+```bash
+sha256sum -c MODEL_PARTS_SHA256SUMS.txt
+cat cinaps_pi05_standard_29999.tar.zst.part-* > cinaps_pi05_standard_29999.tar.zst
+sha256sum -c MODEL_SHA256SUMS.txt
+zstd -t cinaps_pi05_standard_29999.tar.zst
+mkdir -p cinaps_pi05_checkpoint
+tar --use-compress-program=zstd -xf cinaps_pi05_standard_29999.tar.zst -C cinaps_pi05_checkpoint
+```
+
+The extracted checkpoint is under `cinaps_pi05_checkpoint/29999/`. From a compatible OpenPI environment, load it **for offline inference only** with:
+
+```bash
+uv run scripts/serve_policy.py --port 8000 \
+  policy:checkpoint \
+  --policy.config pi05_xarm_cinaps_staged_50_corrected_lora \
+  --policy.dir /absolute/path/to/cinaps_pi05_checkpoint/29999
+```
+
+This starts a policy server; **do not connect robot actuation scripts** without independent safety checks. Redistributors and downstream users are responsible for confirming that upstream π0.5/OpenPI weight licenses and any applicable lab permissions allow their intended use.
+
+---
+
 ## CINAPS Dataset Validation and Camera Synchronization
 
 <p align="center">
@@ -297,7 +331,7 @@ A local **50-episode grasp-event analysis** exists for `xarm_demos_cinaps_staged
 | Grasp-event analysis | Report produced |
 | Verified successful placements | Not yet quantified |
 | Verified full-sequence successes | Not yet quantified |
-| CINAPS π0.5 inference latency | Not measured |
+| CINAPS π0.5 offline inference latency | 85.33 ms median across five warm client-observed calls; no robot actuation |
 
 
 ### Camera timestamp differences across 50 episodes
@@ -415,14 +449,14 @@ The workstation inspection confirmed local **π0.5 CINAPS LoRA training outputs*
 | Predicted action chunk extraction | `xarm_pi05_cinaps_chunk5.py` extracts A1–A5 and gripper values from a policy inference response |
 | Chunk validation and execution implementation | Bridge to A1; command A2–A5 via `execute_target`; require operator `START` |\n| Gripper in chunk5 | Predicted values displayed; **no gripper commands sent** |\n| Checkpoint format | Orbax handlers for `params`, `train_state`; OpenPI callback for `assets` |
 | Robot execution outcomes | Pending log-level verification |
-| CINAPS policy inference latency / success rate | Not yet documented |
+| CINAPS policy inference latency / success rate | Offline median warm request latency 85.33 ms; physical task success not yet measured |
 
-**Important:** The inspected `chunk5` source implements commanded arm movements, but no completed runtime log has yet been reviewed; successful physical execution remains unverified. The checkpoint's `_CHECKPOINT_METADATA` has empty `metrics` and `performance_metrics`. The source also checks `actions.shape[0] < 3` before indexing five actions, which should be corrected to `< 5` before running again. These checks are not a substitute for collision and controller safety verification. This reports observed local checkpoint paths and script references, not verified checkpoint quality or successful real-robot outcomes. The 107 GB model data is **not uploaded to GitHub**. Publication of sanitized training/inference scripts and deployment logs is the next repository step.
+**Important:** The inspected `chunk5` source implements commanded arm movements, but no completed runtime log has yet been reviewed; successful physical execution remains unverified. The checkpoint's `_CHECKPOINT_METADATA` has empty `metrics` and `performance_metrics`. The source also checks `actions.shape[0] < 3` before indexing five actions, which should be corrected to `< 5` before running again. These checks are not a substitute for collision and controller safety verification. This reports observed local checkpoint paths and script references, not verified checkpoint quality or successful real-robot outcomes. An inference-only copy of the standard step-29,999 checkpoint (~5.90 GiB) is now available via the model GitHub Release; the full 107 GB of training runs and optimizer states remains local.
 
 ---
 ## Repository Scope
 
-This repository contains implementation code and technical notes for GELLO and xArm7 integration, plus documentation of staged CINAPS recording and evaluation. **Raw recordings, 4.3 GB dataset, private lab identifiers, checkpoints, ROS bags, and local caches are excluded.** Public reuse remains subject to permission from the relevant project/lab and third-party licenses.
+This repository contains implementation code and technical notes for GELLO and xArm7 integration, plus documentation of staged CINAPS recording and evaluation. **Large raw recordings and model weights are distributed via dedicated GitHub Releases, not tracked as ordinary Git files. Private lab identifiers, ROS bags, optimizer/training states and local caches are excluded.** Public reuse remains subject to permission from the relevant project/lab and third-party licenses.
 
 ## Roadmap
 
@@ -487,4 +521,4 @@ These plots use recorded `robot_data.csv` joint and normalized gripper values, g
 | S | 41–48 | [View S](assets/cinaps_trajectories_s.png) |
 | FULL | 49–50 | [View FULL](assets/cinaps_trajectories_full.png) |
 
-**Reproduce the plots:** [`evaluation/plot_cinaps_joint_trajectories.py`](evaluation/plot_cinaps_joint_trajectories.py). The underlying demonstration recordings are stored locally and are not part of this repository.
+**Reproduce the plots:** [`evaluation/plot_cinaps_joint_trajectories.py`](evaluation/plot_cinaps_joint_trajectories.py). The underlying demonstration recordings are distributed separately via the public dataset GitHub Release, not stored directly in the Git repository.
