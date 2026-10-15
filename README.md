@@ -96,7 +96,7 @@ The sequence above describes the *collection design*, not a certified task-succe
 
 ## Dataset and Workflow
 
-The inspected local source script is `~/cinaps_collection/record_cinaps_staged_50.py`. It sets `FPS = 6.0`, reads external and wrist image topics, and records GELLO/xArm7 state into episode data. Its launcher is `run_record_cinaps_staged_50.sh`. These source files are **not yet included in this GitHub repository**, pending final code review, sanitization, and publication permission.
+The inspected local source script is `~/cinaps_collection/record_cinaps_staged_50.py`. It sets `FPS = 6.0`, reads external and wrist image topics, and records GELLO/xArm7 state into episode data. Its launcher is `run_record_cinaps_staged_50.sh`. The staged recorder and launcher are now available in [`data_collection/`](data_collection/). **Caution:** the recorder includes hardware-specific HOME angles and connection settings and can initiate physical robot movement; review and adapt it for your own setup. Public release permission for lab materials remains the repository owner's responsibility.
 
 The local corrected dataset has **50 episode directories** and occupies **4.3 GB**. A separate report, *CINAPS 1–50 Grasp Report*, presents detected gripper-closing frames, camera images, joint data and G2 measurements. Gripper closure alone does not prove that an object was securely grasped or placed.
 
@@ -112,12 +112,12 @@ flowchart LR
 
 Further details: [Collection guide](docs/cinaps_collection.md) · [Grasp-report summary](docs/cinaps_grasp_report.md).
 
-### Recording source files to review for publication
+### Recording source files
 
 | Stage | Local source file | Repository status |
 |---|---|---|
-| Staged recording | `record_cinaps_staged_50.py` | Pending review/upload |
-| Staged launcher | `run_record_cinaps_staged_50.sh` | Pending review/upload |
+| Staged recording | [`record_cinaps_staged_50.py`](data_collection/record_cinaps_staged_50.py) | Published; hardware review required |
+| Staged launcher | [`run_record_cinaps_staged_50.sh`](data_collection/run_record_cinaps_staged_50.sh) | Published |
 | General collection | `collect_cinaps_50.py` | Pending review/upload |
 | General collection launcher | `run_cinaps_50.sh` | Pending review/upload |
 
@@ -139,11 +139,18 @@ pi0.5-xArm7-cinaps-stacking/
 │   ├── cinaps_collection.md
 │   ├── cinaps_grasp_report.md
 │   └── progress_checklist.md
+├── data_collection/
+│   ├── record_cinaps_staged_50.py
+│   └── run_record_cinaps_staged_50.sh
+├── data_processing/
+│   └── validate_cinaps_dataset.py
+├── evaluation/
+│   └── cinaps_dataset_validation.md
 ├── .gitignore
 └── README.md
 ```
 
-**Planned additions:** `data_collection/`, `data_processing/`, `assets/`, `evaluation/`, `inference/`, and `tests/` as the corresponding actual scripts and experiments are reviewed.
+**Planned additions:** approved task media in `assets/`, preprocessing and LeRobot conversion tools, `inference/`, and `tests/` as actual implementations are reviewed.
 
 ---
 
@@ -177,6 +184,57 @@ The staged recording launcher also controls/coordinates data-collection activity
 
 ---
 
+## CINAPS Dataset Validation and Camera Synchronization
+
+The corrected dataset was examined on October 15, 2026. The **initial structural check found 0 failures**; a stricter per-episode audit returned **0 `FAIL` and 50 `WARN`** because at least one camera callback timestamp pair in every episode exceeded the 100 ms warning threshold.
+
+### Dataset overview
+
+| Measure | Observed result |
+|---|---:|
+| Corrected dataset | `xarm_demos_cinaps_staged_50_corrected` (local workstation) |
+| Episode directories | **50** |
+| Total robot CSV records | **11,520** |
+| External camera JPEG frames | **11,520** |
+| Wrist camera JPEG frames | **11,520** |
+| Initial structural failures | **0** |
+| Stricter validator structural failures (`FAIL`) | **0** |
+| Episodes with camera timing warnings (`WARN`) | **50** |
+| Camera resolution (both views, sample frame) | **1280 × 720** |
+| Corrected dataset disk usage | **4.3 GB** |
+| System Python OpenCV version | **4.6.0** |
+
+### Camera callback timestamp analysis
+
+| Metric | Absolute external/wrist difference |
+|---|---:|
+| **Median** | **26.23 ms** |
+| **95th percentile** | **144.70 ms** |
+| **Maximum** | **1,614.69 ms** (episode 0012) |
+| Other large observed maximum | 1,557.8 ms (episode 0046) |
+
+| Threshold exceeded | Frame pairs | Percentage of 11,520 |
+|---|---:|---:|
+| > 50 ms | 3,391 | 29.44% |
+| > 100 ms | 1,557 | 13.52% |
+| > 200 ms | 381 | 3.31% |
+| > 500 ms | 61 | 0.53% |
+| > 1,000 ms | 11 | 0.10% |
+
+**Interpretation:** **86.48%** of pairs had callback timestamp differences **≤100 ms**, but this does not verify synchronized camera capture. The recorder stores **callback-reception timestamps**, which can differ from the sensors' exposure times. The maximum is an outlier, but timing outliers require review before LeRobot conversion. These checks are **not** measurements of grasp or placement success.
+
+Full results and methodology: [CINAPS dataset validation report](evaluation/cinaps_dataset_validation.md).
+
+Run the read-only validator:
+
+```bash
+/usr/bin/python3 data_processing/validate_cinaps_dataset.py \\
+  --dataset ~/xarm_demos_cinaps_staged_50_corrected \\
+  --report /tmp/cinaps_validation.csv
+```
+
+---
+
 ## Evaluation and Grasp Report
 
 A local **50-episode grasp-event analysis** exists for `xarm_demos_cinaps_staged_50_corrected`; it includes external and wrist views, seven joint values, gripper measurements and frames around the first detected gripper closing in each episode.
@@ -206,7 +264,7 @@ This repository contains implementation code and technical notes for GELLO and x
 - [x] Record and locate a 50-episode staged dataset
 - [x] Produce a 50-episode grasp-event inspection report
 - [x] Publish GELLO setup, collection and evaluation documentation
-- [ ] Review and publish staged recorder and launch scripts
+- [x] Publish staged recorder and launch scripts (hardware-specific settings still require review)
 - [ ] Audit all 50 corrected episodes and label valid grasp/place outcomes
 - [ ] Add approved task images and representative demo GIF
 - [ ] Add dataset preprocessing and LeRobot conversion
