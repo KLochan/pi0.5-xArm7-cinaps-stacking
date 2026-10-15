@@ -65,3 +65,22 @@ The validator reports missing/misnumbered images, CSV field/finite-value issues,
 3. Confirm camera timebase/synchronization and decide whether resampling is needed.
 4. Create a clean, labeled dataset and only then convert to LeRobot.
 5. Do not commit the raw 4.3 GB dataset or full internal grasp PDF to the public repository without explicit lab authorization.
+
+
+## Frame-level camera callback skew distribution — October 15, 2026
+
+A read-only analysis of all `external_timestamp` and `wrist_timestamp` values in the 50 corrected episode CSV files produced:
+
+| Metric | Result |
+|---|---:|
+| Frame pairs | **11,520** |
+| Median absolute callback timestamp skew | **26.23 ms** |
+| 95th percentile absolute callback skew | **144.70 ms** |
+| Maximum skew | **1,614.69 ms** |
+| Skew > 50 ms | **3,391 (29.44%)** |
+| Skew > 100 ms | **1,557 (13.52%)** |
+| Skew > 200 ms | **381 (3.31%)** |
+| Skew > 500 ms | **61 (0.53%)** |
+| Skew > 1000 ms | **11 (0.10%)** |
+
+**Interpretation:** 86.48% of frame pairs are at or below the 100 ms callback skew threshold, although all 50 episodes contain at least one sample above it. These are callback-reception timestamps, not necessarily camera sensor timestamps, so they are not a direct measurement of physical capture synchronization. Before training, examine outliers and camera freshness/possible frame reuse; avoid changing or dropping the original data without an explicit preprocessing strategy and evaluation.
