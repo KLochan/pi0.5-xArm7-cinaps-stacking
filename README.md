@@ -277,6 +277,12 @@ These scripts have **robot-motion capability** and are research prototypes, not 
 
 ---
 
+### LeRobot Conversion Implementation
+
+The corrected CINAPS demonstration dataset is converted using [`xarm_to_lerobot_cinaps_50_corrected.py`](data_processing/xarm_to_lerobot_cinaps_50_corrected.py), which processes the 50 staged episodes with external/wrist RGB frames, seven joint observations, one normalized gripper value and eight-component actions at 6 Hz.
+
+**Existing-data protection:** The published converter refuses to overwrite an existing LeRobot output directory. It does **not** remove the previously converted dataset automatically. Camera callback timestamp outliers documented in [dataset validation](evaluation/cinaps_dataset_validation.md) should be reviewed before future training runs.
+
 ## π0.5 Training and Action-Chunk Implementation
 
 ### Verified π0.5 Training Configuration
