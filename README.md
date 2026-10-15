@@ -196,6 +196,16 @@ The staged recording launcher also controls/coordinates data-collection activity
 
 ## CINAPS Dataset Validation and Camera Synchronization
 
+<p align="center">
+  <img src="assets/cinaps_camera_synchronization.png"
+       width="950"
+       alt="CINAPS camera synchronization analysis">
+</p>
+
+*Camera callback timestamp differences across 11,520 frame pairs.*
+
+
+
 The corrected dataset was examined on October 15, 2026. The **initial structural check found 0 failures**; a stricter per-episode audit returned **0 `FAIL` and 50 `WARN`** because at least one camera callback timestamp pair in every episode exceeded the 100 ms warning threshold.
 
 ### Dataset overview
@@ -242,6 +252,24 @@ Run the read-only validator:
   --dataset ~/xarm_demos_cinaps_staged_50_corrected \\
   --report /tmp/cinaps_validation.csv
 ```
+
+---
+
+## CINAPS Example Demonstration and Full Grasp Report
+
+The following example shows **episode 0001, frames 97–100**, around a detected
+G2 gripper-closing event. External and wrist camera observations are shown side
+by side. This example illustrates the recorded data and does **not**, by itself,
+verify successful grasp, placement or autonomous stacking.
+
+[![CINAPS episode 0001 camera sequence](assets/cinaps_episode_0001_grasp_sequence.jpg)](assets/cinaps_episode_0001_grasp_sequence.jpg)
+
+**[View the complete 50-demonstration grasp report (PDF, 84 pages)](assets/CINAPS_1-50_Grasp_Report_web.pdf)**
+
+The linked PDF contains the report's detected grasp-frame images and recorded
+joint/gripper values for the 50 numbered demonstrations. It is a compressed
+web-viewing copy; keep the original high-resolution PDF in your local archive.
+The report does not include full-length videos or the complete 4.3 GB dataset.
 
 ---
 
