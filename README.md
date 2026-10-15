@@ -437,3 +437,9 @@ This repository contains implementation code and technical notes for GELLO and x
 Work performed at **CINAPS Lab, Graduate School of System Informatics, Kobe University, Japan**.
 
 Built with or intended to integrate **GELLO**, **UFactory xArm7 / G2**, **ROS 2**, **Intel RealSense**, **LeRobot** and **π0.5 / OpenPI**. Upstream packages and devices retain their respective licenses and usage terms.
+## Real demonstration trajectory example
+
+The figure below shows a real trajectory recorded from `episode_0001` of the staged CINAPS dataset.  
+The top panel shows the 7 xArm joint trajectories, and the bottom panel shows the normalized gripper trajectory recorded during the same demonstration.
+
+![Episode 0001 joint and gripper trajectories](assets/episode_0001_joint_gripper_plot.png)
