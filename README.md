@@ -443,3 +443,8 @@ The figure below shows a real trajectory recorded from `episode_0001` of the sta
 The top panel shows the 7 xArm joint trajectories, and the bottom panel shows the normalized gripper trajectory recorded during the same demonstration.
 
 ![Episode 0001 joint and gripper trajectories](assets/episode_0001_joint_gripper_plot.png)
+## Demonstration length across the staged CINAPS dataset
+
+The figure below shows the number of recorded frames for each of the 50 staged CINAPS demonstrations collected on the real xArm7 + GELLO platform.
+
+![CINAPS frame count across all demonstrations](assets/cinaps_all_demonstrations_frame_count.png)
