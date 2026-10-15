@@ -294,9 +294,7 @@ A local **50-episode grasp-event analysis** exists for `xarm_demos_cinaps_staged
 
 ### Camera timestamp differences across 50 episodes
 
-<p align="center">
-  <img src="assets/cinaps_camera_timestamp_skew.svg" width="950" alt="Bar chart showing 29.44% of frame pairs above 50 ms, 13.52% above 100 ms, 3.31% above 200 ms, 0.53% above 500 ms and 0.10% above 1000 ms"/>
-</p>
+See the measured callback-skew figure in [Measured Diagnostics](#measured-diagnostics--cinaps-data-and-preliminary-inference).
 
 Across **11,520** external/wrist frame pairs, the median absolute camera callback timestamp difference was **26.23 ms** (95th percentile **144.7 ms**). **13.52%** of pairs exceeded 100 ms. All 50 episodes passed structural checks, but each included at least one timestamp warning. These are **callback reception times, not hardware capture timestamps**, so sensor synchronization and potential frame staleness still require investigation. See [full dataset validation](evaluation/cinaps_dataset_validation.md).
 
@@ -304,21 +302,25 @@ See [Grasp-report notes](docs/cinaps_grasp_report.md) and [Progress checklist](d
 
 ---
 
-## CINAPS Benchmark Framework — Planned Evaluation
+## Measured Diagnostics — CINAPS Data and Preliminary Inference
+
+These are **plots of recorded measurements**, rather than a proposed benchmark diagram. They do **not** demonstrate grasp or placement success.
+
+### Camera callback timing across 50 episodes
 
 <p align="center">
-  <img src="assets/cinaps_benchmark_framework.svg" width="1000" alt="Planned benchmarks: grasp success, placement success, full CINAPS completion, inference and control latency, and camera timing quality. Success rates not yet measured."/>
+  <img src="assets/cinaps_camera_timestamp_skew.svg" width="950" alt="Measured distribution of external and wrist camera callback timestamp differences across 11,520 recorded frame pairs"/>
 </p>
 
-This figure defines **what to measure next**; it is **not a chart of achieved success rates**. Proposed endpoints are grasp success, correct target placement, six-letter sequence completion, inference latency, full observation-to-action latency, and camera timing. The camera callback skew statistic shown is an existing diagnostic, **not proof of sensor exposure synchronization**. View the [benchmark protocol, trial labeling rules and reporting checklist](evaluation/cinaps_benchmark_protocol.md).
+Across 11,520 paired records, median absolute **callback** skew was **26.23 ms** and p95 was **144.7 ms**; **13.52%** exceeded 100 ms. Callback timestamps do not establish hardware capture synchronization.
 
-| Benchmark endpoint | Evidence status |
-|---|---|
-| Grasp success / per-letter placement success | Requires independently labeled physical trials |
-| Full six-letter CINAPS success | Requires repeated autonomous full-sequence trials |
-| Policy inference latency | Eight preliminary policy-call times, task/checkpoint attribution unverified |
-| End-to-end control latency | Not yet measured |
-| Camera callback timestamp skew | Measured on 11,520 frame pairs; capture timing not established |
+### Preliminary π0.5 policy-call timing
+
+<p align="center">
+  <img src="assets/pi05_inference_timing_8_cycles.svg" width="950" alt="Measured policy inference time over eight logged cycles, preliminary and not yet attributed to a verified CINAPS benchmark"/>
+</p>
+
+Eight logged policy calls are plotted. Their task and checkpoint attribution remain unverified; they are **not** end-to-end robot latency or verified CINAPS success rates. See the [evaluation protocol](evaluation/cinaps_benchmark_protocol.md) for what still needs to be measured.
 
 ---
 
@@ -326,9 +328,7 @@ This figure defines **what to measure next**; it is **not a chart of achieved su
 
 The following **eight inference times** were extracted from cycles 1–8 of `~/openpi/plus5x_diag.log`. The log shows repeated policy inference, but its exact task and checkpoint have **not yet been verified**, so these values are **preliminary log measurements, not a certified CINAPS benchmark**.
 
-<p align="center">
-  <img src="assets/pi05_inference_timing_8_cycles.svg" width="950" alt="Line plot of policy inference times for eight logged cycles">
-</p>
+See the policy inference plot in [Measured Diagnostics](#measured-diagnostics--cinaps-data-and-preliminary-inference).
 
 | Cycle | Inference time |
 |---|---:|
