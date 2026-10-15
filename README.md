@@ -259,6 +259,15 @@ A local **50-episode grasp-event analysis** exists for `xarm_demos_cinaps_staged
 | Verified full-sequence successes | Not yet quantified |
 | CINAPS π0.5 inference latency | Not measured |
 
+
+### Camera timestamp differences across 50 episodes
+
+<p align="center">
+  <img src="assets/cinaps_camera_timestamp_skew.svg" width="950" alt="Bar chart showing 29.44% of frame pairs above 50 ms, 13.52% above 100 ms, 3.31% above 200 ms, 0.53% above 500 ms and 0.10% above 1000 ms"/>
+</p>
+
+Across **11,520** external/wrist frame pairs, the median absolute camera callback timestamp difference was **26.23 ms** (95th percentile **144.7 ms**). **13.52%** of pairs exceeded 100 ms. All 50 episodes passed structural checks, but each included at least one timestamp warning. These are **callback reception times, not hardware capture timestamps**, so sensor synchronization and potential frame staleness still require investigation. See [full dataset validation](evaluation/cinaps_dataset_validation.md).
+
 See [Grasp-report notes](docs/cinaps_grasp_report.md) and [Progress checklist](docs/progress_checklist.md). No handwash-task inference latency or success statistics are attributed to CINAPS.
 
 ---
