@@ -122,12 +122,14 @@ Further details: [Collection guide](docs/cinaps_collection.md) · [Grasp-report 
 
 ### Recording source files
 
+The **staged recorder** collects letter-by-letter demonstrations; the **general collector** attempts the complete C → I → N → A → P → S sequence and manages cameras, GELLO and HOME movements. Both operate physical hardware; inspect local configuration and safety behavior before running.
+
 | Stage | Local source file | Repository status |
 |---|---|---|
 | Staged recording | [`record_cinaps_staged_50.py`](data_collection/record_cinaps_staged_50.py) | Published; hardware review required |
 | Staged launcher | [`run_record_cinaps_staged_50.sh`](data_collection/run_record_cinaps_staged_50.sh) | Published |
-| General collection | `collect_cinaps_50.py` | Pending review/upload |
-| General collection launcher | `run_cinaps_50.sh` | Pending review/upload |
+| General collection | [`collect_cinaps_50.py`](data_collection/collect_cinaps_50.py) | Published — experimental full-sequence collector; hardware review required |
+| General collection launcher | [`run_cinaps_50.sh`](data_collection/run_cinaps_50.sh) | Published — experimental; commands physical hardware |
 
 ---
 
@@ -151,7 +153,9 @@ pi0.5-xArm7-cinaps-stacking/
 │   └── progress_checklist.md
 ├── data_collection/
 │   ├── record_cinaps_staged_50.py
-│   └── run_record_cinaps_staged_50.sh
+│   ├── run_record_cinaps_staged_50.sh
+│   ├── collect_cinaps_50.py
+│   └── run_cinaps_50.sh
 ├── data_processing/
 │   └── validate_cinaps_dataset.py
 ├── evaluation/
