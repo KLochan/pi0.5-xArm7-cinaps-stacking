@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="430" viewBox="0 0 1160 430" role="img" aria-label="Planned CINAPS benchmark: grasp success, placement success, full CINAPS completion, end-to-end latency, and camera timing. No measured success rates yet.">
+<rect width="1160" height="430" rx="24" fill="#0b1220"/>
+<text x="44" y="60" fill="#f8fafc" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="700">CINAPS benchmark framework</text>
+<text x="44" y="91" fill="#a7b6cc" font-family="Arial,Helvetica,sans-serif" font-size="17">Evaluation dimensions for xArm7 + π0.5 • proposed protocol, not results</text>
+<rect x="44" y="115" width="1072" height="4" rx="2" fill="#364761"/>
+<g font-family="Arial,Helvetica,sans-serif">
+<rect x="44" y="149" width="337" height="108" rx="15" fill="#17243a" stroke="#4a6b96"/>
+<text x="65" y="182" font-size="20" fill="#f1f5f9" font-weight="700">01  Grasp success</text>
+<text x="65" y="210" font-size="15" fill="#bfd0e4">Stable lift after closing</text>
+<text x="65" y="237" font-size="14" fill="#fbbf24">Not yet measured</text>
+<rect x="411" y="149" width="337" height="108" rx="15" fill="#17243a" stroke="#4a6b96"/>
+<text x="432" y="182" font-size="20" fill="#f1f5f9" font-weight="700">02  Placement success</text>
+<text x="432" y="210" font-size="15" fill="#bfd0e4">Letter within marked target</text>
+<text x="432" y="237" font-size="14" fill="#fbbf24">Not yet measured</text>
+<rect x="778" y="149" width="338" height="108" rx="15" fill="#17243a" stroke="#4a6b96"/>
+<text x="799" y="182" font-size="20" fill="#f1f5f9" font-weight="700">03  Full CINAPS task</text>
+<text x="799" y="210" font-size="15" fill="#bfd0e4">Six letters in correct order</text>
+<text x="799" y="237" font-size="14" fill="#fbbf24">Not yet measured</text>
+<rect x="44" y="277" width="521" height="100" rx="15" fill="#17243a" stroke="#4a6b96"/>
+<text x="65" y="311" font-size="20" fill="#f1f5f9" font-weight="700">04  Inference &amp; control latency</text>
+<text x="65" y="338" font-size="15" fill="#bfd0e4">Policy latency vs. perception-to-actuation</text>
+<text x="65" y="361" font-size="14" fill="#fbbf24">Task-attributed trials pending</text>
+<rect x="595" y="277" width="521" height="100" rx="15" fill="#17243a" stroke="#4a6b96"/>
+<text x="616" y="311" font-size="20" fill="#f1f5f9" font-weight="700">05  Camera timing quality</text>
+<text x="616" y="338" font-size="15" fill="#bfd0e4">Callback skew • capture timing still unverified</text>
+<text x="616" y="361" font-size="14" fill="#86efac">Existing diagnostic: median 26.23 ms</text>
+<text x="44" y="410" font-size="13" fill="#9baec6">No invented success rates. Report results only after labeled, repeated physical trials with defined pass/fail criteria.</text>
+</g></svg>
