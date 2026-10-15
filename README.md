@@ -448,3 +448,9 @@ The top panel shows the 7 xArm joint trajectories, and the bottom panel shows th
 The figure below shows the number of recorded frames for each of the 50 staged CINAPS demonstrations collected on the real xArm7 + GELLO platform.
 
 ![CINAPS frame count across all demonstrations](assets/cinaps_all_demonstrations_frame_count.png)
+## Stage-wise demonstration length
+
+The figure below summarizes the number of recorded frames for each stage of the staged CINAPS dataset.  
+The stages correspond to the progressive letter-placement demonstrations for C, I, N, A, P, S, and the final FULL CINAPS arrangement.
+
+![CINAPS stage-wise frame count](assets/cinaps_stagewise_frame_count.png)
