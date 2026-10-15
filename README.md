@@ -18,7 +18,7 @@
 
 This repository documents a real-robot **CINAPS** letter-manipulation workflow using a **UFactory xArm7**, **UF G2 gripper**, **Dynamixel-based GELLO** teleoperator, and **external plus wrist RealSense cameras**. The staged task is to pick and place the letters **C, I, N, A, P, S** in their corresponding target positions.
 
-The current work focuses on GELLO/xArm7 integration, joint-current tuning, image-and-robot-state demonstration recording, and dataset inspection. **π0.5 / OpenPI** fine-tuning and autonomous execution are planned extensions, not completed results for this task.
+The current work focuses on GELLO/xArm7 integration, joint-current tuning, image-and-robot-state demonstration recording, and dataset inspection. Local **π0.5 / OpenPI** training checkpoint directories and action-chunk experiment scripts are now confirmed. Physical execution outcomes and success rates still require verification.
 
 ### Key Features
 
@@ -263,6 +263,25 @@ See [Grasp-report notes](docs/cinaps_grasp_report.md) and [Progress checklist](d
 
 ---
 
+## π0.5 Training and Action-Chunk Implementation
+
+The workstation inspection confirmed local **π0.5 CINAPS LoRA training outputs** and experimental inference scripts. This project is therefore beyond data collection, although the available command outputs do not yet establish a quantitative autonomous task-success rate.
+
+| Component | Verified local evidence |
+|---|---|
+| Corrected CINAPS LoRA training | Checkpoint directories under `pi05_xarm_cinaps_staged_50_corrected_lora` |
+| Saved steps (two run directories) | **5,000; 10,000; 15,000; 20,000; 25,000; 29,999** |
+| Corrected checkpoint directory storage | **107 GB** (all contents combined) |
+| LeRobot dataset | Cached `lochan/xarm_cinaps_staged_50_corrected` |
+| LeRobot conversion implementation | `xarm_to_lerobot_cinaps_50_corrected.py` found in local OpenPI workspace |
+| Predicted action chunk extraction | `xarm_pi05_cinaps_chunk5.py` extracts A1–A5 and gripper values from a policy inference response |
+| Chunk safety checks | Source references action-to-action validation and an explicit `START` confirmation |
+| Robot execution outcomes | Pending log-level verification |
+| CINAPS policy inference latency / success rate | Not yet documented |
+
+**Important:** This reports observed local checkpoint paths and script references, not verified checkpoint quality or successful real-robot outcomes. The 107 GB model data is **not uploaded to GitHub**. Publication of sanitized training/inference scripts and deployment logs is the next repository step.
+
+---
 ## Repository Scope
 
 This repository contains implementation code and technical notes for GELLO and xArm7 integration, plus documentation of staged CINAPS recording and evaluation. **Raw recordings, 4.3 GB dataset, private lab identifiers, checkpoints, ROS bags, and local caches are excluded.** Public reuse remains subject to permission from the relevant project/lab and third-party licenses.
@@ -278,7 +297,7 @@ This repository contains implementation code and technical notes for GELLO and x
 - [ ] Audit all 50 corrected episodes and label valid grasp/place outcomes
 - [ ] Add approved task images and representative demo GIF
 - [ ] Add dataset preprocessing and LeRobot conversion
-- [ ] Fine-tune and evaluate π0.5 for CINAPS
+- [x] Generate local π0.5 CINAPS training checkpoints (5,000–29,999 steps)\n- [x] Develop π0.5 CINAPS action-chunk scripts (source files located)\n- [ ] Verify real-robot action-chunk execution outcomes and evaluate CINAPS success rates
 - [ ] Report controlled multi-trial letter-placement and full-sequence success rates
 
 ---
