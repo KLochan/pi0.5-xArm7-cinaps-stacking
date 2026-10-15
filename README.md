@@ -275,11 +275,11 @@ The workstation inspection confirmed local **π0.5 CINAPS LoRA training outputs*
 | LeRobot dataset | Cached `lochan/xarm_cinaps_staged_50_corrected` |
 | LeRobot conversion implementation | `xarm_to_lerobot_cinaps_50_corrected.py` found in local OpenPI workspace |
 | Predicted action chunk extraction | `xarm_pi05_cinaps_chunk5.py` extracts A1–A5 and gripper values from a policy inference response |
-| Chunk safety checks | Source references action-to-action validation and an explicit `START` confirmation |
+| Chunk validation and execution implementation | Bridge to A1; command A2–A5 via `execute_target`; require operator `START` |\n| Gripper in chunk5 | Predicted values displayed; **no gripper commands sent** |\n| Checkpoint format | Orbax handlers for `params`, `train_state`; OpenPI callback for `assets` |
 | Robot execution outcomes | Pending log-level verification |
 | CINAPS policy inference latency / success rate | Not yet documented |
 
-**Important:** This reports observed local checkpoint paths and script references, not verified checkpoint quality or successful real-robot outcomes. The 107 GB model data is **not uploaded to GitHub**. Publication of sanitized training/inference scripts and deployment logs is the next repository step.
+**Important:** The inspected `chunk5` source implements commanded arm movements, but no completed runtime log has yet been reviewed; successful physical execution remains unverified. The checkpoint's `_CHECKPOINT_METADATA` has empty `metrics` and `performance_metrics`. The source also checks `actions.shape[0] < 3` before indexing five actions, which should be corrected to `< 5` before running again. These checks are not a substitute for collision and controller safety verification. This reports observed local checkpoint paths and script references, not verified checkpoint quality or successful real-robot outcomes. The 107 GB model data is **not uploaded to GitHub**. Publication of sanitized training/inference scripts and deployment logs is the next repository step.
 
 ---
 ## Repository Scope
