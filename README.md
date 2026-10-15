@@ -454,3 +454,29 @@ The figure below summarizes the number of recorded frames for each stage of the 
 The stages correspond to the progressive letter-placement demonstrations for C, I, N, A, P, S, and the final FULL CINAPS arrangement.
 
 ![CINAPS stage-wise frame count](assets/cinaps_stagewise_frame_count.png)
+
+## Real Joint and Gripper Trajectories — All 50 Demonstrations
+
+These plots use recorded `robot_data.csv` joint and normalized gripper values, grouped by the seven CINAPS stages. The horizontal axis is **normalized episode progress (0–100%)**, not elapsed time. The seven joint traces are overlaid without per-joint labels in this initial visualization; therefore, these are descriptive diagnostics, **not validated motion-safety or task-success results**.
+
+### Representative stage: C (episodes 1–8)
+
+![C stage xArm7 joint and gripper trajectories](assets/cinaps_trajectories_c.png)
+
+### Full-sequence stage (episodes 49–50)
+
+![Full CINAPS xArm7 joint and gripper trajectories](assets/cinaps_trajectories_full.png)
+
+### All stage figures
+
+| Stage | Episodes | Recorded trajectory figure |
+|---|---|---|
+| C | 1–8 | [View C](assets/cinaps_trajectories_c.png) |
+| I | 9–16 | [View I](assets/cinaps_trajectories_i.png) |
+| N | 17–24 | [View N](assets/cinaps_trajectories_n.png) |
+| A | 25–32 | [View A](assets/cinaps_trajectories_a.png) |
+| P | 33–40 | [View P](assets/cinaps_trajectories_p.png) |
+| S | 41–48 | [View S](assets/cinaps_trajectories_s.png) |
+| FULL | 49–50 | [View FULL](assets/cinaps_trajectories_full.png) |
+
+**Reproduce the plots:** [`evaluation/plot_cinaps_joint_trajectories.py`](evaluation/plot_cinaps_joint_trajectories.py). The underlying demonstration recordings are stored locally and are not part of this repository.
