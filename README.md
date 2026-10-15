@@ -263,6 +263,20 @@ See [Grasp-report notes](docs/cinaps_grasp_report.md) and [Progress checklist](d
 
 ---
 
+## Published CINAPS π0.5 Inference Scripts
+
+The following **experimental implementations are now available** in this repository:
+
+| Script | Purpose |
+|---|---|
+| [One-shot inference](inference/xarm_pi05_cinaps_one_shot.py) | Predict an 8-D action, limit the arm movement, and require operator confirmation before a single motion command |
+| [Five-action chunk](inference/xarm_pi05_cinaps_chunk5.py) | Predict A1–A5, validate demonstration-derived joint step/range constraints, then request manual approval for each target |
+| [Inference guide](inference/README.md) | Inputs, checkpoint notes, and safety limitations |
+
+These scripts have **robot-motion capability** and are research prototypes, not verified collision-safe controllers. In both experiments the gripper is observed but not commanded. Publishing the code does not establish task-success results.
+
+---
+
 ## π0.5 Training and Action-Chunk Implementation
 
 The workstation inspection confirmed local **π0.5 CINAPS LoRA training outputs** and experimental inference scripts. This project is therefore beyond data collection, although the available command outputs do not yet establish a quantitative autonomous task-success rate.
