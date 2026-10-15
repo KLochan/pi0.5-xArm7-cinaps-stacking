@@ -2,7 +2,7 @@
 
 **Dataset:** `xarm_demos_cinaps_staged_50_corrected` (local workstation; not included in GitHub)
 
-**Validation source:** Terminal output from October 15, 2026. The earlier one-off script checked row/image counts, image readability with OpenCV, and finite joint/action numbers. This document records that output; the new reusable validator is a **different, more stringent script** and its results must be generated separately.
+**Validation source:** Terminal output from October 15, 2026. The earlier one-off script checked row/image counts, image readability with OpenCV, and finite joint/action numbers. This document records that output; the new reusable validator is a **different, more stringent script**. Its actual results are documented below.
 
 | Measure | Observed result |
 |---|---:|
@@ -15,6 +15,25 @@
 | Sample image resolution (both cameras, episode_0001 frame 000000) | **1280 × 720** |
 | Corrected dataset local disk usage | **4.3 GB** |
 | OpenCV installed in system Python | 4.6.0 |
+
+## Reusable validator results — October 15, 2026
+
+The user executed `data_processing/validate_cinaps_dataset.py` against the corrected dataset using the default 100 ms camera callback skew warning threshold.
+
+| Result | Value |
+|---|---:|
+| Episodes analyzed | 50 |
+| Total CSV rows | 11,520 |
+| Structural failures (`FAIL`) | **0** |
+| Episodes with callback-skew warnings (`WARN`) | **50** |
+| Highest recorded camera callback skew | **1,614.69 ms**, episode 0012 |
+| Another high maximum | **1,557.8 ms**, episode 0046 |
+| Lowest per-episode maximum | **166.0 ms**, episode 0026 |
+| Validation report path on workstation | `/tmp/cinaps_validation.csv` |
+
+**Meaning:** All episodes passed the validator's structural checks; none passed the strict 100 ms per-episode maximum callback-skew threshold. These are **warnings**, not demonstrated grasp or placement failures. The reported values are per-episode **maxima**, not means or medians. The actual per-frame timing distribution remains unknown from the summary log alone.
+
+The validator currently checks JPEG headers and dimensions, not complete pixel decoding. The earlier OpenCV script performed readability checks. Successful runs do not prove that camera capture was synchronized, the arm trajectory was optimal, or every letter was correctly placed.
 
 ## Interpretation
 
@@ -33,7 +52,7 @@ From the cloned repository on the workstation:
 ```bash
 cd ~/pi0.5-xArm7-cinaps-stacking
 /usr/bin/python3 data_processing/validate_cinaps_dataset.py \\
-  --dataset ~/xarm_demos_cinaps_staged_50_corrected \\
+  --dataset ~/xarm_demos_cinaps_staged_50_corrected \
   --report /tmp/cinaps_validation.csv
 ```
 
