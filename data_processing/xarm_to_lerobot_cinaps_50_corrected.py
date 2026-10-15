@@ -1,5 +1,4 @@
 from pathlib import Path
-import shutil
 
 import numpy as np
 import pandas as pd
@@ -71,13 +70,10 @@ def main():
     # --------------------------------------------------------
 
     if output_path.exists():
-        print()
-        print("Removing previous CINAPS LeRobot conversion:")
-        print(output_path)
-
-        # This removes only the converted LeRobot copy,
-        # NOT the raw demonstrations.
-        shutil.rmtree(output_path)
+        raise FileExistsError(
+            f"Converted dataset already exists: {output_path}. "
+            "Refusing to overwrite or delete it."
+        )
 
     # --------------------------------------------------------
     # CREATE LEROBOT DATASET
