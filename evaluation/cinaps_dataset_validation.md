@@ -84,3 +84,11 @@ A read-only analysis of all `external_timestamp` and `wrist_timestamp` values in
 | Skew > 1000 ms | **11 (0.10%)** |
 
 **Interpretation:** 86.48% of frame pairs are at or below the 100 ms callback skew threshold, although all 50 episodes contain at least one sample above it. These are callback-reception timestamps, not necessarily camera sensor timestamps, so they are not a direct measurement of physical capture synchronization. Before training, examine outliers and camera freshness/possible frame reuse; avoid changing or dropping the original data without an explicit preprocessing strategy and evaluation.
+
+## Camera Synchronization Visualization
+
+![CINAPS camera synchronization analysis](cinaps_camera_synchronization.png)
+
+The median camera callback timestamp difference is 26.23 ms across
+11,520 frame pairs. A total of 1,557 pairs (13.52%) exceed 100 ms.
+These are callback timestamps, not verified sensor capture timestamps.
